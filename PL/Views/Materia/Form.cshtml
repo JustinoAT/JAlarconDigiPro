@@ -1,0 +1,70 @@
+﻿@model ML.Materia
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/bundles/jquery")
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<br>
+<div class="text-center">
+    <h2 class="display-6">Formulario</h2>
+</div>
+<br>
+@using (Html.BeginForm("Form", "Materia", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div>
+            @Html.HiddenFor(model => model.IdMateria)
+
+            @Html.LabelFor(model => model.Nombre)
+
+            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control bloquear" })
+            <br>
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.Costo)
+
+            @Html.TextBoxFor(model => model.Costo, new { @class = "form-control bloquear" })
+            <br>
+        </div>
+    </div>
+
+    <br>
+    <div class="text-center">
+        <button id="btnGuardar" class="btn btn-success" type="submit"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+        <a id="btnCancelar" class="btn btn-danger" href="@Url.Action("GetAll", "Materia")"><i class="fa-solid fa-right-from-bracket"></i> Volver</a>
+    </div>
+    <br>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+
+        $("#btnGuardar").mouseenter(function () {
+            $("#btnGuardar").addClass("fa-bounce").removeClass("btn-success").mouseout(function () {
+                $("#btnGuardar").addClass("btn-success").removeClass("fa-bounce")
+
+
+
+            })
+
+        });
+
+
+        $("#btnCancelar").mouseenter(function () {
+            $("#btnCancelar").addClass("fa-bounce").removeClass("btn-danger").mouseout(function () {
+                $("#btnCancelar").removeClass("fa-bounce").addClass("btn-danger")
+
+
+
+            })
+
+        });
+    </script>
+}
+

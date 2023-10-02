@@ -1,0 +1,118 @@
+﻿@model ML.Alumno
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br>
+<div class="text-center">
+    <h2 class="display-6">Formulario</h2>
+</div>
+@using (Html.BeginForm("Form", "Alumno", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="row">
+        <div>
+            @Html.HiddenFor(model => model.IdAlumno)
+
+
+
+            @Html.LabelFor(model => model.Nombre)
+
+            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control bloquear", @onkeypress = "return lettersOnly(event, 'lblErrorNombre')" })
+            <br>
+            <label style="color:red">
+                @Html.ValidationMessageFor(model => model.Nombre)
+            </label>
+            <label id="lblErrorNombre"></label>
+        </div>
+
+        <div>
+            @Html.LabelFor(model => model.ApellidoPaterno)
+
+            @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control bloquear", @onkeypress = "return lettersOnly(event, 'lblErrorApellidoPaterno')" })
+            <br>
+            <label style="color:red">
+                @Html.ValidationMessageFor(model => model.ApellidoPaterno)
+            </label>
+            <label id="lblErrorApellidoPaterno"></label>
+        </div>
+
+
+        <div>
+            @Html.LabelFor(model => model.ApellidoMaterno)
+
+            @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control bloquear", @onkeypress = "return lettersOnly(event, 'lblErrorApellidoMaterno')" })
+            <br>
+            <label style="color:red">
+                @Html.ValidationMessageFor(model => model.ApellidoMaterno)
+            </label>
+            <label id="lblErrorApellidoMaterno"></label>
+        </div>
+    </div>
+
+    <br>
+    <div class="text-center">
+        <button id="btnGuardar" class="btn btn-success" type="submit"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+        <a id="btnCancelar" class="btn btn-danger" href="@Url.Action("GetAll", "Usuario")"><i class="fa-solid fa-right-from-bracket"></i> Volver</a>
+    </div>
+    <br>
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript">
+
+        function lettersOnly(e, lbl) {
+            var charCode = e.keyCode;
+
+            if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123) || charCode == 32) {
+                $('#' + lbl).text("")
+                return true;
+            }
+            else {
+                $('#' + lbl).text("Solo se aceptan letras")
+                $('#' + lbl).css('color', 'red');
+                return false;
+
+            }
+        }
+
+        //Funcion para bloquear el copy/paste
+        $(document).ready(function () {
+            $('.bloquear').on('paste', function (e) {
+                e.preventDefault();
+                alert('Esta acción está prohibida');
+            })
+
+            $('.bloquear').on('copy', function (e) {
+                e.preventDefault();
+                alert('Esta acción está prohibida');
+            })
+        })
+
+
+
+
+
+
+        $("#btnGuardar").mouseenter(function () {
+            $("#btnGuardar").addClass("fa-bounce").removeClass("btn-success").mouseout(function () {
+                $("#btnGuardar").addClass("btn-success").removeClass("fa-bounce")
+
+
+
+            })
+
+        });
+
+
+        $("#btnCancelar").mouseenter(function () {
+            $("#btnCancelar").addClass("fa-bounce").removeClass("btn-danger").mouseout(function () {
+                $("#btnCancelar").removeClass("fa-bounce").addClass("btn-danger")
+
+
+
+            })
+
+        });
+    </script>
+}
